@@ -17,7 +17,7 @@ func Chat(s *discordgo.Session, m *discordgo.MessageCreate) {
 			ErrorLog(fmt.Errorf("%s: An error occurred when attempting to tail factorio.log\nDetails: %s", time.Now(), err))
 		}
 		for line := range t.Lines {
-			if strings.Contains(line.Text, "[CHAT]") || strings.Contains(line.Text, "[JOIN]") || strings.Contains(line.Text, "[LEAVE]") {
+			if strings.Contains(line.Text, "[CHAT]") || strings.Contains(line.Text, "[JOIN]") || strings.Contains(line.Text, "[LEAVE]") || strings.Contains(line.Text, "FactoCord.ext: ") {
 				if !strings.Contains(line.Text, "<server>") {
 
 					if strings.Contains(line.Text, "[JOIN]") ||
@@ -25,6 +25,9 @@ func Chat(s *discordgo.Session, m *discordgo.MessageCreate) {
 						TmpList := strings.Split(line.Text, " ")
 						// Don't hard code the channelID! }:<
 						s.ChannelMessageSend(Config.FactorioChannelID, fmt.Sprintf("%s", strings.Join(TmpList[3:], " ")))
+					} else if strings.Contains(line.Text, "FactoCord.ext:") {
+						TmpList := strings.Split(line.Text, " ")
+						s.ChannelMessageSend(Config.FactorioChannelID, fmt.Sprintf("%s", strings.Join(TmpList[1:], " ")))
 					} else {
 
 						TmpList := strings.Split(line.Text, " ")
@@ -45,6 +48,10 @@ func Chat(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 						s.ChannelMessageSend(Config.FactorioChannelID, fmt.Sprintf("<%s>: %s", TmpList[3], strings.Join(TmpList[4:], " ")))
 					}
+				}
+			} else {
+				if strings.Contains(Config.LogConsole, "TRUE") {
+					s.ChannelMessageSend(Config.FactorioConsoleChannelID, fmt.Sprintf("%s", line.Text))
 				}
 			}
 		}
