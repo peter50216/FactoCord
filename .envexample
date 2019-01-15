@@ -13,3 +13,11 @@ Prefix = "$"
 ModListLocation = "/path/to/mods/mod-list.json"
 
 GameName = "Factorio"
+
+LuaPrefix = "!"
+
+AllowLuaCommands = "TRUE"
+
+FactorioConsoleChannelID = "534498273067794443"
+
+LogConsole = "FALSE"
