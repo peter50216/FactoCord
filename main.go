@@ -102,6 +102,7 @@ func main() {
 			time.Sleep(4 * time.Hour)
 		}
 	}()
+
 	discord()
 }
 
@@ -142,13 +143,13 @@ func discord() {
 }
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
-	log.Print("[" + m.Author.Username + "] " + m.Content)
 
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
 
 	if m.ChannelID == support.Config.FactorioChannelID {
+		log.Print("[" + m.Author.Username + "] General Channel: " + m.Content)
 		if strings.HasPrefix(m.Content, support.Config.Prefix) {
 			command := strings.Split(m.Content[1:len(m.Content)], " ")
 			name := strings.ToLower(command[0])
@@ -161,5 +162,20 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			support.ErrorLog(fmt.Errorf("%s: An error occurred when attempting to pass Discord chat to in-game\nDetails: %s", time.Now(), err))
 		}
 		return
+	} else if m.ChannelID == support.Config.FactorioConsoleChannelID {
+		log.Print("[" + m.Author.Username + "] Console Channel: " + m.Content)
+
+		if strings.HasPrefix(m.Content, support.Config.LuaPrefix) {
+			if strings.Contains(support.Config.AllowLuaCommands, "TRUE") {
+				name := "LuaCommand"
+				commands.RunCommand(name, s, m)
+			} else {
+				fmt.Println("LUA je vypnuta")
+			}
+			return
+		}
+
+	} else {
+		log.Print("[" + m.Author.Username + "] Ignored: " + m.Content)
 	}
 }

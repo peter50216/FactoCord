@@ -26,12 +26,16 @@ var CL Commands
 
 // RegisterCommands registers the commands on start up.
 func RegisterCommands() {
+
 	// Admin Commands
 	CL.CommandList = append(CL.CommandList, Command{Name: "Stop", Command: admin.StopServer,
 		Admin: true})
 	CL.CommandList = append(CL.CommandList, Command{Name: "Restart", Command: admin.Restart,
 		Admin: true})
 	CL.CommandList = append(CL.CommandList, Command{Name: "Save", Command: admin.SaveServer,
+		Admin: true})
+
+	CL.CommandList = append(CL.CommandList, Command{Name: "LuaCommand", Command: admin.LuaCommand,
 		Admin: true})
 
 	// Util Commands
