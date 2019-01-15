@@ -5,6 +5,14 @@
 <a href="https://travis-ci.org/FactoKit/FactoCord"><img src="https://travis-ci.org/FactoKit/FactoCord.svg?branch=master"</img></a>
 </p>
 
+# WORK IN PROGRESS
+
+*Run at your own risk!*
+
+*This readme should be updated later :-P*
+
+To get the death and research notifications to Discord, you will have to modify control.lua of the save file you would like to use. It should keep the "vanilla" achievements in a working condition (not tested yet). It is slightly modified version of mlogger 0.2.
+
 # Running
 *Make sure you have your .env file in the same directory as the executable/binary, you can use .envexample the template*
 
