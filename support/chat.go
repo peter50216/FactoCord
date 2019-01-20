@@ -42,9 +42,9 @@ func Chat(s *discordgo.Session, m *discordgo.MessageCreate) {
 				TmpList := strings.Split(line.Text, " ")
 				s.ChannelMessageSend(Config.FactorioChannelID, fmt.Sprintf("%s", strings.Join(TmpList[3:], " ")))
 
-			} else if strings.Contains(line.Text, "FactoCord.ext: ") {
+			} else if strings.Contains(line.Text, "[FactoCord]") {
 				TmpList := strings.Split(line.Text, " ")
-				s.ChannelMessageSend(Config.FactorioChannelID, fmt.Sprintf("%s", strings.Join(TmpList[1:], " ")))
+				s.ChannelMessageSend(Config.FactorioChannelID, fmt.Sprintf("%s", strings.Join(TmpList[2:], " ")))
 
 			} else {
 				if strings.Contains(Config.LogConsole, "TRUE") {
