@@ -13,9 +13,9 @@ import (
 	"syscall"
 	"time"
 
-	"./support"
 	"./commands"
 	"./commands/admin"
+	"./support"
 	"github.com/bwmarrin/discordgo"
 	_ "github.com/joho/godotenv/autoload"
 )
@@ -170,7 +170,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				name := "LuaCommand"
 				commands.RunCommand(name, s, m)
 			} else {
-				fmt.Println("LUA je vypnuta")
+				s.ChannelMessageSend(support.Config.FactorioChannelID, "Lua commands are disabled...")
 			}
 			return
 		}
