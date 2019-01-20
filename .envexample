@@ -1,25 +1,53 @@
+# Sample config. Copy to ".env" and modify values to your needs.
+
+# Your bot's Discord Token. Start by creating a new Application and bot
+# here: https://discordapp.com/developers/applications/me
 DiscordToken = "DiscordTokenHere"
 
+# General chat channel ID (chat messages from the game will be relayed
+# here and vice versa)
+# The ID can be accessed using the "Copy ID" option in the context menu
+# you can open using right clicking on the target channel in the Discord
+# client. If you cannot see the option, you probably have to turn on
+# developer mode (User Settings -> Appearance, scroll down and turn on
+# Developer Mode)
 FactorioChannelID = "ChannelIDHere"
 
+# Launch parameters that are passed to Factorio server.
 LaunchParameters = "--start-server-load-latest --server-settings /path/to/file.json"
 
+# Path to Factorio binary file
 Executable = "/path/to/file"
 
+# IDs of admin users from Discord (obtained similarly to channel id)
 AdminIDs = "AdminIDsHere,SeperateByComma"
 
+# Prefix for basic commands (save, stop...)
 Prefix = "$"
 
+# Path to mod-list file
 ModListLocation = "/path/to/mods/mod-list.json"
 
+# The game the bot will be "playing"
 GameName = "Factorio"
 
+# Prefix for Lua commands - everything after the LuaPrefix will be passed
+# to "/c " - Lua commands are accepted only from the console channel.
 LuaPrefix = "!"
 
+# Self explanatory...
 AllowLuaCommands = "TRUE"
 
-FactorioConsoleChannelID = "534498273067794443"
-
+# Should be the Factorio log sent to Discord? Slows down the communication
+# with Discord when a lot of messages arrive (like server during start up).
+# Needed if you expect to see output of console commands.
 LogConsole = "FALSE"
 
-ExitGracePeriond = 10
+# Channel ID for console commands and console output
+FactorioConsoleChannelID = "534498273067794443"
+
+# Grace period between saving the map and killing of the factorio server
+# process. If you run a reasonably large map you should investigate how
+# many seconds the server needs to completely save a game. Low values may
+# result in a corrupted save file.
+ExitGracePeriod = 4
