@@ -21,3 +21,5 @@ AllowLuaCommands = "TRUE"
 FactorioConsoleChannelID = "534498273067794443"
 
 LogConsole = "FALSE"
+
+ExitGracePeriond = 10

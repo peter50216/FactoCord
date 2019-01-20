@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -23,12 +24,19 @@ type config struct {
 	GameName                 string
 	AllowLuaCommands         string
 	LogConsole               string
+	ExitGracePeriod          int
 }
 
 func (conf *config) LoadEnv() {
 	if _, err := os.Stat(".env"); os.IsNotExist(err) {
 		fmt.Println("Environment file not found, cannot continue!")
 		Error := errors.New("Failed to load environment file")
+		ErrorLog(Error)
+	}
+
+	exitGracePeriodInt, err := strconv.Atoi(os.Getenv("ExitGracePeriod"))
+	if err != nil {
+		Error := errors.New("ExitGracePeriod must be integer")
 		ErrorLog(Error)
 	}
 
@@ -45,6 +53,7 @@ func (conf *config) LoadEnv() {
 		GameName:                 os.Getenv("GameName"),
 		AllowLuaCommands:         os.Getenv("AllowLuaCommands"),
 		LogConsole:               os.Getenv("LogConsole"),
+		ExitGracePeriod:          exitGracePeriodInt,
 	}
 
 }
